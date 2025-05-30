@@ -1,0 +1,41 @@
+<section style="padding: 2rem; max-width: 600px; margin: auto;">
+  <h2 style="color:#800080;">🎁 Loyalty Rewards</h2>
+  <p>You earn <strong>1 Point</strong> for every <strong>₹200</strong> spent.</p>
+  <p><strong>Minimum order:</strong> ₹500</p>
+  <p><strong>Redemption:</strong> 1 Point = ₹1 discount</p>
+  <p><strong>Points expire:</strong> after 150 days</p>
+  <p><strong>Max redeemable:</strong> 10% of order total</p>
+  <p><strong>Minimum bill to redeem:</strong> ₹399</p>
+  
+  <hr>
+
+  <label>Enter Purchase Amount:</label>
+  <input type="number" id="purchase" placeholder="e.g. 600" />
+  <button onclick="calculatePoints()">Check Points</button>
+
+  <div id="result" style="margin-top:1rem; font-weight: bold;"></div>
+</section>
+
+<script>
+function calculatePoints() {
+  const amt = parseFloat(document.getElementById("purchase").value);
+  let msg = "";
+
+  if (amt < 500) {
+    msg = "❌ No points earned (min ₹500 purchase needed)";
+  } else {
+    const points = Math.floor(amt / 200);
+    const maxDiscount = Math.floor(amt * 0.10);
+    const redeemable = Math.min(points, maxDiscount);
+
+    msg = `✅ You earned ${points} Points.<br>`;
+    if (amt >= 399) {
+      msg += `You can redeem up to ₹${redeemable} this time.`;
+    } else {
+      msg += `You need at least ₹399 to redeem points.`;
+    }
+  }
+
+  document.getElementById("result").innerHTML = msg;
+}
+</script>
